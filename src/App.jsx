@@ -374,6 +374,7 @@ export default function App() {
   const [busy, setBusy] = useState(false);
   const [syncing, setSyncing] = useState(false);
   const [modelInfo, setModelInfo] = useState(null);
+  const [showIntro, setShowIntro] = useState(true);
 
   useEffect(() => {
     try {
@@ -567,6 +568,29 @@ export default function App() {
 
   return (
     <main className="min-h-screen px-5 py-7 text-slate-100 sm:px-8">
+      {showIntro && (
+        <div className="fixed inset-0 z-50 flex items-start justify-center bg-ink/70 px-4 pt-20 backdrop-blur-sm">
+          <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-gradient-to-b from-panel to-panel2 p-6 shadow-panel">
+            <div className="mb-3 flex items-start justify-between gap-4">
+              <div>
+                <h2 className="font-display text-xl font-bold text-slate-100">What is Credit Default?</h2>
+                <p className="mt-1 font-mono text-[11px] uppercase tracking-[.14em] text-dim">risk prediction overview</p>
+              </div>
+              <button className="btn-icon" onClick={() => setShowIntro(false)} aria-label="Close intro">
+                <span className="text-lg leading-none">x</span>
+              </button>
+            </div>
+            <p className="text-sm leading-6 text-muted">
+              Credit default means a borrower is likely to miss required loan repayments. This dashboard estimates that
+              risk using a trained LightGBM model, then explains the prediction with top SHAP drivers such as external
+              credit scores, loan terms, income ratios, previous applications, and repayment history.
+            </p>
+            <button className="btn-primary mt-5 w-full" onClick={() => setShowIntro(false)}>
+              Continue to dashboard
+            </button>
+          </div>
+        </div>
+      )}
       <div className="mx-auto max-w-6xl">
         <header className="flex flex-wrap items-center gap-4 border-b border-white/10 pb-5">
           <div className="mr-auto">
